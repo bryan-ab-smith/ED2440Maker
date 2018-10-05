@@ -1,0 +1,62 @@
+<!DOCTYPE html5>
+<html>
+	<head>
+		<title>Weather Station</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+		<style>
+			body {
+				margin: 5%;
+			}
+
+			.accent {
+				color: rgb(0,123,255);
+			}
+
+			#reloadButton {
+				position: absolute;
+				bottom: 25pt;
+				right: 25pt;
+				z-index: 2;
+				box-shadow: 5px 5px 10px grey;
+			}
+		</style>
+	</head>
+	<body>
+		<h3>
+			Weather Station
+			<small class='text-muted'>Maker Project</small>
+		</h3>
+		<p></p>
+		<h4>Information</h4>
+		<div class='container'>
+			<dl class='row'>
+				<dt class='col-sm-3'>Temperature</dt>
+				<dd class='col-sm-9'>It is <span class='accent'>{{ temperature }}&deg;</span> in the room.<br \>
+					{% if oldTemp != '0.0'  %}
+						{% if oldTemp < temperature %}
+							It is <span class='accent'>{{ tempDiff }}&deg;</span> warmer than the last time you checked.
+						{% elif oldTemp > temperature %}
+							It is <span class='accent'>{{ tempDiff }}&deg;</span> cooler than the last time you checked.
+						{% else %}
+							There has been no temperature change since last time.
+						{% endif %}
+					{% endif %}
+				</dd>
+				{% if oldTemp != '0.0'  %}
+                        		<dt class='col-sm-3'>History</dt>
+					<dd class='col-sm-9'>Last time you checked, it was <span class='accent'>{{ oldTemp }}&deg;</span> in the room.</dd>
+                		{% endif %}
+			</dl>
+		</div>
+		<p></p>
+		<h4>About</h4>
+		This is a weather station, running off of a Raspberry Pi. The code is open source and available <a href='https://github.com/bryan-ab-smith/2440-maker-example'>here</a>. Developed by Bryan Smith.
+		<a id='reloadButton' class='btn btn-primary btn-lg' href='javascript:window.location.reload()'>Reload</a>
+	</body>
+</html>
